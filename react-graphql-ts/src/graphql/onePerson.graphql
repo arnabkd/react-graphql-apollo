@@ -1,0 +1,17 @@
+query onePerson($personId: ID!) {
+  person(id: $personId) {
+    id
+    name
+    pets {
+      id
+      name
+      ... on Dog {
+        barkLoudly
+      }
+
+      ... on Cat {
+        makeSound
+      }
+    }
+  }
+}

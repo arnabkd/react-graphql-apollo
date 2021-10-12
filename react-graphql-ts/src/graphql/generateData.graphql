@@ -1,0 +1,5 @@
+mutation generateData {
+  generateData {
+    id
+  }
+}

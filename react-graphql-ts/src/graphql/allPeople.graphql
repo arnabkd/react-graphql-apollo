@@ -1,0 +1,10 @@
+query allPeople {
+  allPeople {
+    id
+    name
+    pets {
+      id
+      name
+    }
+  }
+}
