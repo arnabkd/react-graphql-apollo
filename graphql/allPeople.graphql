@@ -1,0 +1,6 @@
+query allPeople {
+  allPeople {
+    id
+    name
+  }
+}

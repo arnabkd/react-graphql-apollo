@@ -1,0 +1,5 @@
+mutation wipeData {
+  wipeData {
+    success
+  }
+}

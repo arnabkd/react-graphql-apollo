@@ -1,44 +1,19 @@
+# Create react-app with typescript
 yarn create react-app react-graphql-ts --template typescript
 cd react-graphql-ts
+
+mkdir -p src/graphql
+cp ../graphql/*.graphql src/graphql
 
 # Deps
 yarn add @material-ui/core \
   @material-ui/icons \
   @apollo/client \
-  graphql \
+  graphql.macro \
   react-router-dom
-yarn add -D @graphql-codegen/cli \
-  @graphql-codegen/introspection \
-  @graphql-codegen/near-operation-file-preset \
-  @graphql-codegen/typescript \
-  @graphql-codegen/typescript-operations \
-  @graphql-codegen/typescript-react-apollo \
+yarn add -D apollo\
   @types/react-router-dom \
   prettier
-
-# Config codegen
-cat > codegen.yml <<EOL
-overwrite: true
-schema: "http://localhost:8080/graphql"
-documents: "src/graphql/*.graphql"
-generates:
-  src/graphql/generated/types.ts:
-    - typescript
-  src/graphql/generated/:
-    preset: near-operation-file
-    presetConfig:
-      baseTypesPath: types.ts
-      folder: generated
-    plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
-    config:
-      withHooks: true
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
-EOL
 
 # Config prettier
 cat > .prettierrc <<EOL
@@ -65,6 +40,7 @@ src/serviceWorker.ts
 *.html
 EOL
 
+# Config editorconfig
 cat > .editorconfig <<EOL
 # http://editorconfig.org
 
@@ -98,4 +74,16 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 EOL
 
+cat > apollo.config.js <<EOL
+module.exports = {
+  client: {
+    service: {
+      name: 'people',
+      url: 'http://localhost:8080/graphql'
+    }
+  }
+};
+EOL
+
+yarn apollo client:download-schema
 yarn prettier --write .
